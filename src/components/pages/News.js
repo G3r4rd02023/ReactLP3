@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Data from '../Data';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function News() {
 const [titulo, setTitulo]=useState('');
@@ -12,6 +13,10 @@ const [titulo, setTitulo]=useState('');
   const [autor, setAutor]=useState('');
 
   const [data, setData]=useState([]);
+  const { user } = useAuth0();
+  const currentDate = new Date();
+
+
 
    // submit event
    const handleSubmit=(e)=>{
@@ -20,13 +25,13 @@ const [titulo, setTitulo]=useState('');
 
     // our object to pass
     const data = {
-      titulo,
-      contenido,
-      fechaPublicacion,
-      autor
+      titulo: titulo,
+      contenido: contenido,
+      fechaPublicacion: currentDate.toISOString(),
+      autor: user.name,
     };
     console.log('Datos a enviar:', data); 
-    axios.post('https://sheet.best/api/sheets/1b460ff8-34f0-4ea1-a075-f44e0e24d75a',data).then(response=>{
+    axios.post('https://sheet.best/api/sheets/95aa461d-5301-46b8-920e-bdb1fb5497ed',data).then(response=>{
        console.log(response);
       setTitulo('');
       setContenido('');
@@ -36,7 +41,7 @@ const [titulo, setTitulo]=useState('');
   }
 
   const getData=()=>{
-    axios.get('https://sheet.best/api/sheets/1b460ff8-34f0-4ea1-a075-f44e0e24d75a').then((response)=>{
+    axios.get('https://sheet.best/api/sheets/95aa461d-5301-46b8-920e-bdb1fb5497ed').then((response)=>{
       setData(response.data);
     })
   }
@@ -67,19 +72,9 @@ const [titulo, setTitulo]=useState('');
           value={contenido}
         />
         <br></br>
-        <label>Fecha Publicacion</label>
-        <input type='text' className='form-control' required
-          placeholder='Ingresa la fecha'
-          onChange={(e)=>setFechaPublicacion(e.target.value)}
-          value={fechaPublicacion}
-        />
-        <br></br>
-        <label>Autor</label>
-        <input type='text' className='form-control' required
-          placeholder='Ingresa el autor'
-          onChange={(e)=>setAutor(e.target.value)}
-          value={autor}
-        />
+        
+       
+        
         <br></br>
         <div style={{display:"flex",justifyContent:'flex-end'}}>
           <button type='submit' className='btn btn-primary'>Guardar</button>
@@ -100,11 +95,13 @@ const [titulo, setTitulo]=useState('');
                 </tr>
               </thead>
               <tbody>
-                <Data data={data}/>
+               <Data data={data}/>
               </tbody>
             </table>
           </div>
+                    
         )}
+        
       </div>
     </div>
   );

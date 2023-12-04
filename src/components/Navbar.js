@@ -44,7 +44,7 @@ function Navbar() {
       <nav className='navbar'>
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            My Adventures
+            News and Publishing
             <i class='fa-solid fa-location-dot' />
           </Link>
           <div className='menu-icon' onClick={handleClick}>
@@ -64,7 +64,7 @@ function Navbar() {
                 className='nav-links'
                 onClick={closeMobileMenu}
               >
-                Servicios
+                Crear Publicacion
               </Link>
             </li>
             <li className='nav-item'>
