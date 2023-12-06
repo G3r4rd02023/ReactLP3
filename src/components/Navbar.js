@@ -53,9 +53,14 @@ function Navbar() {
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           {isAuthenticated ? (
             <>
-            <li className='nav-item'>
-              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                Home
+           
+           <li className='nav-item'>
+              <Link
+                to='/titulares'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Titulares
               </Link>
             </li>
             <li className='nav-item'>
@@ -76,6 +81,7 @@ function Navbar() {
                 Noticias
               </Link>
             </li>
+           
             <li className='nav-item'>
             <span className='nav-links' onClick={handleLogout}>
               Cerrar sesión
